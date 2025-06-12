@@ -5,8 +5,13 @@ const dictionaries = {
   de: () => import('../../dictionaries/de.json').then((module) => module.default),
 }
  
-export const getDictionary = async (locale: string) =>
-  dictionaries[locale]()
+export const getDictionary = async (locale: string) => {
+  if (locale === 'en' || locale === 'de') {
+    return dictionaries[locale]()
+  }
+
+  return dictionaries['en']();
+}
 
 // hacking:
 // 10100010100010010001001010101001010101010 alman.check(sebastian thomas jens silke) // always returns true 
