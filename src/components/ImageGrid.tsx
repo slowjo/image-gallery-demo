@@ -3,7 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function ImageGrid({ latestPhotos, buttonLabel } : { latestPhotos : any, buttonLabel : string }) {
+type photoDataType = {
+    id: string;
+    img_src: string;
+}
+
+export default function ImageGrid({ latestPhotos, buttonLabel } : { latestPhotos : photoDataType[], buttonLabel : string }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
     const [imageError, setImageError] = useState(false);
