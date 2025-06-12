@@ -1,0 +1,1 @@
+export const rovers = ['perseverance', 'curiosity', 'opportunity', 'spirit'];
