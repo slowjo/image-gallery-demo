@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import ImageListItemWithLoadingState from "./ImageListItemWithLoadingState";
 
 type photoDataType = {
     id: string;
@@ -11,7 +12,8 @@ type photoDataType = {
 export default function ImageGrid({ latestPhotos, buttonLabel } : { latestPhotos : photoDataType[], buttonLabel : string }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
-    const [imageError, setImageError] = useState(false);
+    // const [imageLoading, setImageLoading] = useState(true);
+    // const [imageError, setImageError] = useState(false);
 
     const selectImage = (url : string) => {
         setSelectedImage(url);
@@ -22,11 +24,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel } : { latestPhotos
         <section className="imagegrid-container">
             <ul className="imagegrid">
                 {latestPhotos && latestPhotos.map((photo) => (
-                <li key={photo.id}>
-                    <button tabIndex={0} className="image-button" onClick={() => selectImage(photo.img_src)}>
-                        <Image src={imageError ? 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png' : photo.img_src} alt="nasa photo" width="900" height="900" loading="lazy" onError={() => {setImageError(true)}} />
-                    </button>
-                </li>
+                <ImageListItemWithLoadingState key={photo.id} selectImage={selectImage} imageSrc={photo.img_src} />
             ))}
             </ul>
             <div className={`imagemodal ${showImage ? '' : 'hidden'}`}>
