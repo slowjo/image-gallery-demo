@@ -26,7 +26,7 @@ export default function Navbar() {
                     <div className={`navdivider absolute right-0 top-2 bottom-2 w-[2px] bg-black ${lastPathSegment === 'spirit' ? 'hidden' : ''}`}></div>
                 </li>
                 <li className="relative flex">
-                    <Link tabIndex={0} href="/spirit-new" className={`navlink ${lastPathSegment === 'spirit' ? 'active' : ''}`} prefetch={true}>Spirit</Link>
+                    <Link tabIndex={0} href="/spirit" className={`navlink ${lastPathSegment === 'spirit' ? 'active' : ''}`} prefetch={true}>Spirit</Link>
                 </li>
             </ul>
         </nav>
