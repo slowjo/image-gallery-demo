@@ -1,4 +1,6 @@
 {
-    "title" : "Hey what's up?",
-    "buttonLabel" : "Back to overall view"
+    "titleLargePart" : "The Mars Rovers",
+    "titleSmallPart" : "View the latest photos!",
+    "buttonLabel" : "Back to overall view",
+    "fullPageViewButton": "Full Page View"
 }

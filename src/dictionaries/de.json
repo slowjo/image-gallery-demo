@@ -1,4 +1,6 @@
 {
-    "title" : "Hallo wie geht's?",
-    "buttonLabel" : "Zurück zur Übersicht"
+    "titleLargePart" : "Die Mars Rover",
+    "titleSmallPart" : "Schau dir die neuesten Fotos an!",
+    "buttonLabel" : "Zurück zur Übersicht",
+    "fullPageViewButton": "Ganzseitige Ansicht" 
 }

@@ -147,6 +147,53 @@ nav ul li:last-child .navlink {
     }
 }
 
+/* Start Page */
+.startpage-container {
+    padding: 2.5rem;
+    padding-bottom: 5rem;
+}
+
+.startpage-container section {
+    max-width: 80rem;
+    margin-inline: auto;
+}
+
+.startpage-container h1 {
+    text-align: center;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.startpage-container h1 .kicker {
+    font-size: calc(7vw + 1.5rem);
+    display: inline-block;
+    letter-spacing: -0.25vw;
+    margin-bottom: 1rem;
+}
+
+.startpage-container h1 .large-header {
+    color: #787878;
+    font-weight: 700;
+    font-size: calc(2vw + 1rem);
+    letter-spacing: +0.25vw;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.startpage-container img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 90vw;
+}
+
+@media(max-width: 765px) {
+    .startpage-container {
+        padding: 1rem;
+        padding-top: 2rem;
+    }
+}
+
 /* Image Grid */
 .imagegrid-container {
     padding: 2.5rem;
@@ -178,6 +225,28 @@ nav ul li:last-child .navlink {
     border: none;
     display: block;
     padding: 1px;
+}
+
+.button-overlay {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: fit-content;
+    background-color: black;
+    color: white;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding-inline: 0.8rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.imagegrid button:hover + .button-overlay,
+.imagegrid button:focus + .button-overlay {
+    opacity: 1; 
 }
 
 .imagegrid button:focus {
@@ -247,6 +316,16 @@ nav ul li:last-child .navlink {
     .imagegrid {
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
+    }
+
+    .button-overlay {
+        /* height: 60%; */
+        font-size: 12px;
+        padding: 0.7rem; 
+    }
+
+    .imagegrid button:hover + .button-overlay {
+        opacity: 0; 
     }
 
     .imagemodal {

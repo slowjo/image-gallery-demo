@@ -23,6 +23,7 @@ export default async function DynamicRoverPage({
     const dict = await getDictionary(lang);
 
     const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=DEMO_KEY`, { next: { revalidate: 30 } });
+    // const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=z4pAcjV0pDhteos1MjvQy0oj1bt2gsSDfFA1Vn8E`, { next: { revalidate: 30 } });
     const data = await res.json();
     console.log('data: ', data);
 
@@ -35,6 +36,10 @@ export default async function DynamicRoverPage({
     }
 
     return (
-        <ImageGrid latestPhotos={data.latest_photos || []} buttonLabel={dict.buttonLabel || ''} />
+        <ImageGrid 
+            latestPhotos={data.latest_photos || []} 
+            buttonLabel={dict.buttonLabel || ''} 
+            fullPageViewButton={dict.fullPageViewButton || ''} 
+        />
     );
 }

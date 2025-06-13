@@ -7,9 +7,14 @@ import ImageListItemWithLoadingState from "./ImageListItemWithLoadingState";
 type photoDataType = {
     id: string;
     img_src: string;
+    camera: {
+        full_name: string;
+    };
+    earth_date: string;
+    sol: number;
 }
 
-export default function ImageGrid({ latestPhotos, buttonLabel } : { latestPhotos : photoDataType[], buttonLabel : string }) {
+export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
     // const [imageLoading, setImageLoading] = useState(true);
@@ -24,7 +29,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel } : { latestPhotos
         <section className="imagegrid-container">
             <ul className="imagegrid">
                 {latestPhotos && latestPhotos.map((photo) => (
-                <ImageListItemWithLoadingState key={photo.id} selectImage={selectImage} imageSrc={photo.img_src} />
+                <ImageListItemWithLoadingState key={photo.id} selectImage={selectImage} imageSrc={photo.img_src} fullPageViewButton={fullPageViewButton} camera={photo?.camera?.full_name || ''} earthDate={photo?.earth_date || ''} sol={photo.sol} />
             ))}
             </ul>
             <div className={`imagemodal ${showImage ? '' : 'hidden'}`}>
