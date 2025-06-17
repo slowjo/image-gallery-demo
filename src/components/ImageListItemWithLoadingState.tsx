@@ -1,5 +1,7 @@
+'use client'
+
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingSquare from "@/components/LoadingSquare";
 
 type Props = {
@@ -21,6 +23,7 @@ export default function ImageListItemWithLoadingState({
 } : Props) {
     const [imageLoading, setImageLoading] = useState(true);
     const [imageError, setImageError] = useState(false);
+    const [localizedDate, setLocalizedDate] = useState('');
 
     const handleLoad = () => {
         setImageLoading(false);
@@ -31,19 +34,29 @@ export default function ImageListItemWithLoadingState({
         setImageError(true);
     };
 
+    const handleClick = () => {
+        selectImage(imageSrc);
+    }
+
+    useEffect(() => {
+        setLocalizedDate(new Date(earthDate).toLocaleDateString());
+    }, [earthDate]);
+
     return (
         <li>
             <LoadingSquare loading={imageLoading} />
-            <button title={fullPageViewButton} aria-label={fullPageViewButton} tabIndex={0} className={`${imageLoading ? 'opacity-0' : ''}`} onClick={() => selectImage(imageSrc)}>
-                <Image src={imageError ? 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png' : imageSrc} alt="nasa photo" width="900" height="900" loading="lazy" onLoad={handleLoad} onError={handleError} />
+            <button title={fullPageViewButton} aria-label={fullPageViewButton} tabIndex={0} className={`${imageLoading ? 'opacity-0' : ''} ${imageError ? 'disabled' : ''}`} onClick={handleClick} disabled={imageError}>
+                <Image src={imageError ? 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png' : imageSrc} alt="nasa photo" width="400" height="400" loading="lazy" onLoad={handleLoad} onError={handleError} unoptimized={true} />
             </button>
-            <div className="button-overlay">
-                <p>
-                    Earth date: {new Date(earthDate).toLocaleDateString() || ''}<br/>
-                    Camera: {camera}<br/>
-                    Martian sol since landing: {sol}
-                </p>
-            </div>
+            {
+                !imageError ? (<div className="button-overlay">
+                    <p>
+                        Earth date: {localizedDate}<br/>
+                        Camera: {camera}<br/>
+                        Martian sol since landing: {sol}
+                    </p>
+                </div>) : null
+            }
         </li>
     );
 }

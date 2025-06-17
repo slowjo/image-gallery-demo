@@ -227,6 +227,10 @@ nav ul li:last-child .navlink {
     padding: 1px;
 }
 
+.imagegrid button.disabled {
+    cursor: default;
+}
+
 .button-overlay {
     position: absolute;
     bottom: 5px;
