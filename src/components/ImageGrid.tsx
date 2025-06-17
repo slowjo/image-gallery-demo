@@ -1,8 +1,9 @@
 'use client'
 
 import Image from "next/image";
-import { useState } from "react";
+import { Ref, useCallback, useRef, useState } from "react";
 import ImageListItemWithLoadingState from "./ImageListItemWithLoadingState";
+import { getImages } from "@/app/[lang]/[rover]/actions";
 
 type photoDataType = {
     id: string;
@@ -12,13 +13,58 @@ type photoDataType = {
     };
     earth_date: string;
     sol: number;
+    rover: string;
 }
 
-export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string }) {
+export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover: string }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
-    // const [imageLoading, setImageLoading] = useState(true);
-    // const [imageError, setImageError] = useState(false);
+    const [page, setPage] = useState(2);
+    const [photos, setPhotos] = useState(latestPhotos);
+    const [maybeNoMorePhotos, setMaybeNoMorePhotos] = useState(false);
+    const observer = useRef<IntersectionObserver | null>(null);
+
+    const lastImage = useCallback((node : Element) => {
+        if (!node) {
+            return;
+        }
+        if (observer.current) {
+            observer.current.disconnect();
+        }
+        observer.current = new IntersectionObserver(
+        async (entries) => {
+            if (entries[0].isIntersecting) {
+                console.log('intersecting');
+                try {
+                    const moreImages = await getImages(rover, page);
+                    if (!moreImages || !moreImages.length) {
+                        setMaybeNoMorePhotos(true);
+                    } else {
+                        setMaybeNoMorePhotos(false);
+                    }
+                    setPhotos((prev) => [
+                        ...prev,
+                        ...moreImages
+                    ]);
+                    setPage((prev) => prev + 1);
+                } catch {
+                    setMaybeNoMorePhotos(true);
+                    console.log('fetch failed on the client');
+                }
+            }
+        });
+        if (maybeNoMorePhotos) {
+            setTimeout(() => {
+                if (observer.current) {
+                    observer.current.observe(node);
+                    console.log('observer observing again after timeout');
+                }
+            }, 5000)    
+        } else {
+            observer.current.observe(node);
+            console.log('observer observing again');
+        }
+    }, [page, maybeNoMorePhotos, rover]);
 
     const selectImage = (url : string) => {
         setSelectedImage(url);
@@ -28,8 +74,12 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
     return(
         <section className="imagegrid-container">
             <ul className="imagegrid">
-                {latestPhotos && latestPhotos.map((photo) => (
-                <ImageListItemWithLoadingState key={photo.id} selectImage={selectImage} imageSrc={photo.img_src} fullPageViewButton={fullPageViewButton} camera={photo?.camera?.full_name || ''} earthDate={photo?.earth_date || ''} sol={photo.sol} />
+                {photos && photos.map((photo, index) => (
+                <div key={photo.id} ref={
+                        (index === photos.length - 1 ? lastImage : null) as Ref<HTMLDivElement>
+                    }>
+                    <ImageListItemWithLoadingState selectImage={selectImage} imageSrc={photo.img_src} fullPageViewButton={fullPageViewButton} camera={photo?.camera?.full_name || ''} earthDate={photo?.earth_date || ''} sol={photo.sol} />
+                </div>    
             ))}
             </ul>
             <div className={`imagemodal ${showImage ? '' : 'hidden'}`}>
