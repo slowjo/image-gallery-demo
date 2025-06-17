@@ -52,7 +52,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                     console.log('fetch failed on the client');
                 }
             }
-        });
+        }, { threshold: 1.0 });
         if (maybeNoMorePhotos) {
             setTimeout(() => {
                 if (observer.current) {
