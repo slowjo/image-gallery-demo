@@ -197,7 +197,29 @@ nav ul li:last-child .navlink {
 /* Image Grid */
 .imagegrid-container {
     padding: 2.5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 10rem;
+}
+
+.loading-spinner {
+    margin-top: 5rem;
+    margin-inline: auto;
+    /* height: 100px; */
+    max-width: 150px;
+}
+
+.loading-spinner svg {
+    height: auto;
+    width: 100%;
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .imagegrid {
