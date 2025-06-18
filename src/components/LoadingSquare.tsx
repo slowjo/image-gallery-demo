@@ -1,5 +1,6 @@
 export default function LoadingSquare({ loading } : { loading : boolean }) {
     return (
-        <div className={`loading-square ${loading ? '' : 'hidden'}`} />
+        <div className={`loading-square ${loading ? '' : 'opacity-0'}`} />
+        // <div className={`loading-square ${loading ? '' : 'hidden'}`} />
     );
 }

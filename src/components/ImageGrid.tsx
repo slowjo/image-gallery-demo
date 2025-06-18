@@ -41,6 +41,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                     const moreImages = await getImages(rover, page);
                     if (!moreImages || !moreImages.length) {
                         setMaybeNoMorePhotos(true);
+                        // setLoading(false);
                     } else {
                         setMaybeNoMorePhotos(false);
                     }
@@ -51,6 +52,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                     setPage((prev) => prev + 1);
                 } catch {
                     setMaybeNoMorePhotos(true);
+                    // setLoading(false);
                     console.log('fetch failed on the client');
                 } finally {
                     setLoading(false);
@@ -60,11 +62,13 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
         if (maybeNoMorePhotos) {
             setTimeout(() => {
                 if (observer.current) {
+                    // setLoading(true);
                     observer.current.observe(node);
                     console.log('observer observing again after timeout');
                 }
             }, 5000)    
         } else {
+            // setLoading(true);
             observer.current.observe(node);
             console.log('observer observing again');
         }
@@ -78,24 +82,27 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
     return(
         <section className="imagegrid-container">
             <ul className="imagegrid">
-                {photos && photos.map((photo, index) => (
-                <div key={photo.id} ref={
-                        (index === photos.length - 1 ? lastImage : null) as Ref<HTMLDivElement>
-                    }>
+                {photos && photos.map((photo) => (
+                // {photos && photos.map((photo, index) => (
+                <div key={photo.id} 
+                // ref={
+                //         (index === photos.length - 1 ? lastImage : null) as Ref<HTMLDivElement>
+                //     }
+                    >
                     <ImageListItemWithLoadingState selectImage={selectImage} imageSrc={photo.img_src} fullPageViewButton={fullPageViewButton} camera={photo?.camera?.full_name || ''} earthDate={photo?.earth_date || ''} sol={photo.sol} />
                 </div>    
             ))}
             </ul>
             {
-                loading ? (
-                    <div className="loading-spinner">
+                // loading ? (
+                    <div className={`loading-spinner ${!loading ? 'opacity-0' : ''}`} ref={lastImage as Ref<HTMLDivElement>}>
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"/>
                         </svg>
                     </div>
-                ) : (
-                    null
-                )
+                // ) : (
+                //     null
+                // )
             }
             <div className={`imagemodal ${showImage ? '' : 'hidden'}`}>
                 {
