@@ -22,8 +22,8 @@ export default async function DynamicRoverPage({
 
     const dict = await getDictionary(lang);
 
-    const res = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/latest_photos?page=1`, { next: { revalidate: 30 } });
-    // const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=DEMO_KEY&page=1`, { next: { revalidate: 30 } });
+    // const res = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/latest_photos?page=1`, { next: { revalidate: 30 } });
+    const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=DEMO_KEY&page=1`, { next: { revalidate: 3600 } });
     // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/spirit?api_key=DEMO_KEY`, { next: { revalidate: 30 } });
     const data = await res.json();
     console.log('data: ', data);
