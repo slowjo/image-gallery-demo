@@ -44,7 +44,7 @@ export default function ImageListItemWithLoadingState({
 
     return (
         <li>
-            <LoadingSquare loading={imageLoading} />
+            <LoadingSquare />
             <button title={fullPageViewButton} aria-label={fullPageViewButton} tabIndex={0} className={`${imageLoading ? 'opacity-0' : ''} ${imageError ? 'disabled' : ''}`} onClick={handleClick} disabled={imageError}>
                 <Image src={imageError ? 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png' : imageSrc} alt="nasa photo" width="400" height="400" loading="lazy" onLoad={handleLoad} onError={handleError} unoptimized={true} />
             </button>

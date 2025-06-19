@@ -45,7 +45,7 @@ ul {
     /* background-color: blue; */
     transition: opacity 1s linear;
     animation: loading-pulse 0.3s linear infinite alternate;
-    z-index: 1000;
+    /* z-index: 1000; */
 }
 
 /* Navbar */
@@ -199,20 +199,23 @@ nav ul li:last-child .navlink {
 /* Image Grid */
 .imagegrid-container {
     padding: 2.5rem;
-    padding-bottom: 10rem;
+    padding-bottom: 3rem;
 }
 
 .loading-spinner {
-    margin-top: 5rem;
+    margin-top: 2rem;
     margin-inline: auto;
     /* height: 100px; */
-    max-width: 150px;
+    max-width: 50px;
+    transition: opacity 0.1s ease;
 }
 
 .loading-spinner svg {
     height: auto;
     width: 100%;
-    animation: rotate 1s linear infinite;
+    animation: rotate 0.5s linear infinite;
+    color: grey;
+    fill: black;
 }
 
 @keyframes rotate {
