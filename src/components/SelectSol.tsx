@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
-export default function SelectSol({ sols, rover, solProp } : { sols : number[], rover : string, solProp : number }) {
+export default function SelectSol({ sols, rover, solProp = 0 } : { sols : number[], rover : string, solProp : number }) {
     const [sol, setSol] = useState(solProp);
     const router = useRouter();
 
