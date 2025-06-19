@@ -61,7 +61,8 @@ export default async function DynamicRoverPage({
             // latestPhotos={data.latest_photos || []} 
             buttonLabel={dict.buttonLabel || ''} 
             fullPageViewButton={dict.fullPageViewButton || ''}
-            rover={rover} 
+            rover={rover}
+            lang={lang} 
         />
     );
 }

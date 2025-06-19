@@ -17,7 +17,7 @@ type photoDataType = {
     rover: string;
 }
 
-export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[] }) {
+export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols, lang } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[], lang : string }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
     const [page, setPage] = useState(2);
@@ -79,7 +79,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
 
     return(
         <section className="imagegrid-container">
-            <SelectSol sols={sols} rover={rover} solProp={sol} />
+            <SelectSol sols={sols} rover={rover} solProp={sol} lang={lang} />
             <ul className="imagegrid">
                 {photos && photos.map((photo) => (
                 // {photos && photos.map((photo, index) => (
