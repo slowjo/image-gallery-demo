@@ -25,6 +25,20 @@ const nextConfig: NextConfig = {
         // pathname: '/my-bucket/**',
         // search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'mars.jpl.nasa.gov',
+        // port: '',
+        // pathname: '/my-bucket/**',
+        // search: '',
+      },
+      {
+        protocol: 'http',
+        hostname: 'mars.jpl.nasa.gov',
+        // port: '',
+        // pathname: '/my-bucket/**',
+        // search: '',
+      },
     ],
   },
 };

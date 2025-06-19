@@ -11,10 +11,13 @@ export async function generateStaticParams() {
 
 export default async function DynamicRoverPage({
   params,
+  searchParams,
 }: {
-  params: Promise<{ lang: string, rover: string }>
+  params: Promise<{ lang: string, rover: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
     const { lang, rover } = await params;
+    const { sol : solParam } = await searchParams;
 
     if (!rovers.includes(rover)) {
         notFound();
@@ -23,10 +26,22 @@ export default async function DynamicRoverPage({
     const dict = await getDictionary(lang);
 
     // const res = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/latest_photos?page=1`, { next: { revalidate: 30 } });
-    const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=DEMO_KEY&page=1`, { next: { revalidate: 3600 } });
-    // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/spirit?api_key=DEMO_KEY`, { next: { revalidate: 30 } });
+    const res = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/latest_photos?page=1`, { next: { revalidate: 3600 } });
+    const res2 = await fetch(`https://mars-photos.herokuapp.com/api/v1/manifests/${rover}`, { next: { revalidate: 30 } });
+    // const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=DEMO_KEY&page=1`, { next: { revalidate: 3600 } });
+    // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 30 } });
+    const data2 = await res2.json();
+    // console.log(solParam, data2.photo_manifest);
+    const sol = solParam || data2.photo_manifest.photos[data2.photo_manifest.photos.length - 1].sol;
+    const sols = data2?.photo_manifest?.photos?.map((item : { sol : number }) => item.sol) || [];
+    // console.log(sols);
+    // const sol = data2.photo_manifest.photos[data2.photo_manifest.photos.length - 100].sol;
+    const res3 = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?api_key=DEMO_KEY&sol=${sol}&page=1`, { next: { revalidate: 3600 } });
+    // const res3 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?api_key=DEMO_KEY&sol=${sol}&page=1`, { next: { revalidate: 3600 } });
+    const data3 = await res3.json();
+    console.log(solParam, data3);
     const data = await res.json();
-    console.log('data: ', data);
+    // console.log('data: ', data);
 
     if (!res.ok) {
         return (
@@ -38,7 +53,11 @@ export default async function DynamicRoverPage({
 
     return (
         <ImageGrid 
-            latestPhotos={data.latest_photos || []} 
+            key={sol}
+            latestPhotos={data3.photos || []}
+            sol={sol}
+            sols={sols} 
+            // latestPhotos={data.latest_photos || []} 
             buttonLabel={dict.buttonLabel || ''} 
             fullPageViewButton={dict.fullPageViewButton || ''}
             rover={rover} 

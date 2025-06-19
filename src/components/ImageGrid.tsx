@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Ref, useCallback, useRef, useState } from "react";
 import ImageListItemWithLoadingState from "./ImageListItemWithLoadingState";
 import { getImages } from "@/app/[lang]/[rover]/actions";
+import SelectSol from "@/components/SelectSol";
 
 type photoDataType = {
     id: string;
@@ -16,7 +17,7 @@ type photoDataType = {
     rover: string;
 }
 
-export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover: string }) {
+export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[] }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
     const [page, setPage] = useState(2);
@@ -38,17 +39,18 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                 console.log('intersecting');
                 try {
                     setLoading(true);
-                    const moreImages = await getImages(rover, page);
+                    console.log(rover, page, sol);
+                    const moreImages = await getImages(rover, page, sol);
                     if (!moreImages || !moreImages.length) {
                         setMaybeNoMorePhotos(true);
                     } else {
                         setMaybeNoMorePhotos(false);
+                        setPage((prev) => prev + 1);
                     }
                     setPhotos((prev) => [
                         ...prev,
                         ...moreImages
                     ]);
-                    setPage((prev) => prev + 1);
                 } catch {
                     setMaybeNoMorePhotos(true);
                     console.log('fetch failed on the client');
@@ -68,7 +70,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
             observer.current.observe(node);
             console.log('observer observing again');
         }
-    }, [page, maybeNoMorePhotos, rover]);
+    }, [page, maybeNoMorePhotos, rover, sol]);
 
     const selectImage = (url : string) => {
         setSelectedImage(url);
@@ -77,6 +79,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
 
     return(
         <section className="imagegrid-container">
+            <SelectSol sols={sols} rover={rover} solProp={sol} />
             <ul className="imagegrid">
                 {photos && photos.map((photo) => (
                 // {photos && photos.map((photo, index) => (
