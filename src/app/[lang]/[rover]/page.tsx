@@ -1,13 +1,13 @@
 // import { getDictionary } from "@/app/[lang]/dictionaries";
 // import ImageGrid from "@/components/ImageGrid";
 // import { notFound } from "next/navigation";
-import { rovers } from "@/data/rovers";
+// import { rovers } from "@/data/rovers";
 
-export async function generateStaticParams() {
-  return rovers.map((rover) => ({
-    rover: rover,
-  }))
-}
+// export async function generateStaticParams() {
+//   return rovers.map((rover) => ({
+//     rover: rover,
+//   }))
+// }
 
 export default async function DynamicRoverPage(
   {
@@ -18,13 +18,13 @@ export default async function DynamicRoverPage(
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 ) {
-    console.log(searchParams);
-    // try {
-    //   const sparams = await searchParams;
-    //   console.log(sparams);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    // console.log(searchParams);
+    try {
+      const sparams = await searchParams;
+      console.log(sparams);
+    } catch (error) {
+      console.log(error);
+    }
     // const { lang, rover } = await params;
 
     // if (!rovers.includes(rover)) {
