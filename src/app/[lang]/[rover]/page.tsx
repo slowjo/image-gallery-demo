@@ -35,22 +35,23 @@ export default async function DynamicRoverPage({
       );
     }
 
-    const data2 = await res2.json();
-    const sol = solParam || data2.photo_manifest.photos[data2.photo_manifest.photos.length - 1].sol;
-    const sols = data2?.photo_manifest?.photos?.map((item : { sol : number }) => item.sol) || [];
+    // const data2 = await res2.json();
+    // const sol = solParam || data2.photo_manifest.photos[data2.photo_manifest.photos.length - 1].sol;
+    // const sols = data2?.photo_manifest?.photos?.map((item : { sol : number }) => item.sol) || [];
 
-    const res3 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
+    // const res3 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
-    if (!res3.ok) {
-      return (
-        <div>
-                {'There was a problem loading the images'}
-            </div>
-        );
-      }
+    // if (!res3.ok) {
+    //   return (
+    //     <div>
+    //             {'There was a problem loading the images'}
+    //         </div>
+    //     );
+    //   }
 
-    const data3 = await res3.json();
-    console.log(solParam, data3, sol, dict, sols);
+    // const data3 = await res3.json();
+    // console.log(solParam, data3, sol, dict, sols);
+    console.log(solParam, dict);
       
     return (
       <div>
