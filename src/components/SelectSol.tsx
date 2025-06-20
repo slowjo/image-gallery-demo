@@ -20,10 +20,15 @@ export default function SelectSol({ sols, rover, solProp = 0 } : { sols : number
     }, [sol, rover, router]);
 
     return (
-        <select onChange={handleChange} value={sol}>
-            {sols && sols.map((item) => (
-                <option key={item}>{item}</option>
-            ))}
-        </select>
+        <div className="select-sol-container">
+            <div>
+                <label htmlFor="select-sol">Select a sol</label>
+                <select name="select-sol" onChange={handleChange} value={sol} className="select-sol">
+                    {sols && sols.map((item) => (
+                        <option key={item}>{item}</option>
+                    ))}
+                </select>
+            </div>
+        </div>
     );
 }

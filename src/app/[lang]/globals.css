@@ -199,7 +199,29 @@ nav ul li:last-child .navlink {
 /* Image Grid */
 .imagegrid-container {
     padding: 2.5rem;
+    padding-top: 0;
     padding-bottom: 3rem;
+}
+
+.select-sol-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-bottom: 1rem;
+    max-width: 80rem;
+    margin-inline: auto;
+}
+
+.select-sol-container label {
+    margin-right: 0.5rem;
+}
+
+.select-sol {
+    padding: 0.2rem;
+    padding-left: 0;
+    font: inherit;
+    min-width: 5rem;
+    text-align: right;
 }
 
 .loading-spinner {
