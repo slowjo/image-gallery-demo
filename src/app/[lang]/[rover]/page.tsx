@@ -18,8 +18,8 @@ export default async function DynamicRoverPage(
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 ) {
-    const { lang, rover } = await params;
     const { sol } = await searchParams;
+    const { lang, rover } = await params;
 
     if (!rovers.includes(rover)) {
         notFound();
