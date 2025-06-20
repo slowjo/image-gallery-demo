@@ -12,14 +12,14 @@ export async function generateStaticParams() {
 export default async function DynamicRoverPage(
   {
   params,
-  searchParams,
+  // searchParams,
 }: {
   params: Promise<{ lang: string, rover: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 ) {
     const { lang, rover } = await params;
-    const { sol : solParam } = await searchParams;
+    // const { sol : solParam } = await searchParams;
 
     if (!rovers.includes(rover)) {
         notFound();
@@ -27,7 +27,7 @@ export default async function DynamicRoverPage(
 
     const dict = await getDictionary(lang);
 
-    console.log(solParam, dict);
+    console.log(dict);
     
     // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     // // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
