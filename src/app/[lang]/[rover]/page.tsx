@@ -67,7 +67,7 @@ export default async function DynamicRoverPage({
       
     return (
         <ImageGrid 
-            key={sol ? sol : 0}
+            // key={sol ? sol : 0}
             latestPhotos={data3.photos || []}
             sol={sol}
             sols={sols} 
