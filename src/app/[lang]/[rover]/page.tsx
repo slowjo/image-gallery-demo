@@ -1,6 +1,6 @@
-// import { getDictionary } from "@/app/[lang]/dictionaries";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 // import ImageGrid from "@/components/ImageGrid";
-// import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { rovers } from "@/data/rovers";
 
 export async function generateStaticParams() {
@@ -10,24 +10,26 @@ export async function generateStaticParams() {
 }
 
 export default async function DynamicRoverPage(
-//   {
-//   params,
-//   searchParams,
-// }: {
-//   params: Promise<{ lang: string, rover: string }>,
-//   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-// }
+  {
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: string, rover: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 ) {
-    // const { lang, rover } = await params;
-    // const { sol : solParam } = await searchParams;
+    const { lang, rover } = await params;
+    const { sol : solParam } = await searchParams;
 
-    // if (!rovers.includes(rover)) {
-    //     notFound();
-    // }
+    if (!rovers.includes(rover)) {
+        notFound();
+    }
 
-    // const dict = await getDictionary(lang);
+    const dict = await getDictionary(lang);
+
+    console.log(solParam, dict);
     
-    const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/perseverance?api_key=z4pAcjV0pDhteos1MjvQy0oj1bt2gsSDfFA1Vn8E`, { next: { revalidate: 3600 } });
+    const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=z4pAcjV0pDhteos1MjvQy0oj1bt2gsSDfFA1Vn8E`, { next: { revalidate: 3600 } });
     // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
     if (!res2.ok) {
