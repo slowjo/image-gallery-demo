@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
-export default function SelectSol({ sols, rover, solProp = 0, lang } : { sols : number[], rover : string, solProp : number, lang : string }) {
+export default function SelectSol({ sols, rover, solProp = 0 } : { sols : number[], rover : string, solProp : number }) {
     const [sol, setSol] = useState(solProp);
     const router = useRouter();
 
@@ -13,11 +13,11 @@ export default function SelectSol({ sols, rover, solProp = 0, lang } : { sols : 
 
     useEffect(() => {
         if (!sol && sol !== 0) {
-            router.push(`${lang}/${rover}`);
+            router.push(`/${rover}`);
         } else {
-            router.push(`${lang}/${rover}?sol=${sol}`);
+            router.push(`/${rover}?sol=${sol}`);
         }
-    }, [sol, rover, router, lang]);
+    }, [sol, rover, router]);
 
     return (
         <select onChange={handleChange} value={sol}>

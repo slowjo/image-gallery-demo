@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Ref, useCallback, useRef, useState } from "react";
 import ImageListItemWithLoadingState from "./ImageListItemWithLoadingState";
 import { getImages } from "@/app/[lang]/[rover]/actions";
-import SelectSol from "@/components/SelectSol";
+// import SelectSol from "@/components/SelectSol";
 
 type photoDataType = {
     id: string;
@@ -17,7 +17,7 @@ type photoDataType = {
     rover: string;
 }
 
-export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols, lang } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[], lang : string }) {
+export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[] }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
     const [page, setPage] = useState(2);
@@ -77,9 +77,11 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
         setShowImage(true);
     }
 
+    console.log(sols, rover, sol);
+
     return(
         <section className="imagegrid-container">
-            <SelectSol sols={sols} rover={rover} solProp={sol} lang={lang} />
+            {/* <SelectSol sols={sols} rover={rover} solProp={sol} /> */}
             <ul className="imagegrid">
                 {photos && photos.map((photo) => (
                 // {photos && photos.map((photo, index) => (
