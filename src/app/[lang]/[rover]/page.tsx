@@ -18,12 +18,13 @@ export default async function DynamicRoverPage(
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 ) {
-    try {
-      const sparams = await searchParams;
-      console.log(sparams);
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(searchParams);
+    // try {
+    //   const sparams = await searchParams;
+    //   console.log(sparams);
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // const { lang, rover } = await params;
 
     // if (!rovers.includes(rover)) {
