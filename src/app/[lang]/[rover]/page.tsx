@@ -29,16 +29,16 @@ export default async function DynamicRoverPage(
 
     console.log(solParam, dict);
     
-    const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=z4pAcjV0pDhteos1MjvQy0oj1bt2gsSDfFA1Vn8E`, { next: { revalidate: 3600 } });
     // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
+    // // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
-    if (!res2.ok) {
-      return (
-        <div>
-            {'There was a problem loading the images'}
-        </div>
-      );
-    }
+    // if (!res2.ok) {
+    //   return (
+    //     <div>
+    //         {'There was a problem loading the images'}
+    //     </div>
+    //   );
+    // }
 
     // const data2 = await res2.json();
     // const sol = solParam || data2.photo_manifest.photos[data2.photo_manifest.photos.length - 1].sol;
