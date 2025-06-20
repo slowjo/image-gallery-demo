@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Ref, useCallback, useRef, useState } from "react";
 import ImageListItemWithLoadingState from "@/components/ImageListItemWithLoadingState";
 import { getImages } from "@/app/actions";
-// import SelectSol from "@/components/SelectSol";
+import SelectSol from "@/components/SelectSol";
 
 type photoDataType = {
     id: string;
@@ -81,7 +81,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
 
     return(
         <section className="imagegrid-container">
-            {/* <SelectSol sols={sols} rover={rover} solProp={sol} /> */}
+            <SelectSol sols={sols} rover={rover} solProp={sol} />
             <ul className="imagegrid">
                 {photos && photos.map((photo) => (
                 // {photos && photos.map((photo, index) => (
