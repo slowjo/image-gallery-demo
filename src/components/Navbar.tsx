@@ -14,19 +14,19 @@ export default function Navbar() {
         <nav>
             <ul>
                 <li className="relative flex">
-                    <Link tabIndex={0} href="/perseverance" className={`navlink ${lastPathSegment === 'perseverance' ? 'active' : ''}`}>Perseverance</Link>
+                    <Link tabIndex={0} href="/perseverance" className={`navlink ${lastPathSegment === 'perseverance' ? 'active' : ''}`} prefetch={true}>Perseverance</Link>
                     <div className={`navdivider ${lastPathSegment === 'curiosity' ? 'hidden' : ''}`}></div>
                 </li>
                 <li className="relative flex">
-                    <Link tabIndex={0} href="/curiosity" className={`navlink ${lastPathSegment === 'curiosity' ? 'active' : ''}`}>Curiosity</Link>
+                    <Link tabIndex={0} href="/curiosity" className={`navlink ${lastPathSegment === 'curiosity' ? 'active' : ''}`} prefetch={true}>Curiosity</Link>
                     <div className={`navdivider${lastPathSegment === 'opportunity' ? 'hidden' : ''}`}></div>
                 </li>
                 <li className="relative flex">
-                    <Link tabIndex={0} href="/opportunity" className={`navlink ${lastPathSegment === 'opportunity' ? 'active' : ''}`}>Opportunity</Link>
+                    <Link tabIndex={0} href="/opportunity" className={`navlink ${lastPathSegment === 'opportunity' ? 'active' : ''}`} prefetch={true}>Opportunity</Link>
                     <div className={`navdivider absolute right-0 top-2 bottom-2 w-[2px] bg-black ${lastPathSegment === 'spirit' ? 'hidden' : ''}`}></div>
                 </li>
                 <li className="relative flex">
-                    <Link tabIndex={0} href="/spirit" className={`navlink ${lastPathSegment === 'spirit' ? 'active' : ''}`}>Spirit</Link>
+                    <Link tabIndex={0} href="/spirit" className={`navlink ${lastPathSegment === 'spirit' ? 'active' : ''}`} prefetch={true}>Spirit</Link>
                 </li>
             </ul>
         </nav>
