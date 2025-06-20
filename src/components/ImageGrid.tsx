@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Ref, useCallback, useRef, useState } from "react";
-import ImageListItemWithLoadingState from "./ImageListItemWithLoadingState";
-import { getImages } from "@/app/[lang]/[rover]/actions";
+import ImageListItemWithLoadingState from "@/components/ImageListItemWithLoadingState";
+import { getImages } from "@/app/actions";
 // import SelectSol from "@/components/SelectSol";
 
 type photoDataType = {
