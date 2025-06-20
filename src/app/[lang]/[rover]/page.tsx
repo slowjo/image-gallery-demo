@@ -1,6 +1,6 @@
-import { getDictionary } from "@/app/[lang]/dictionaries";
+// import { getDictionary } from "@/app/[lang]/dictionaries";
 // import ImageGrid from "@/components/ImageGrid";
-import { notFound } from "next/navigation";
+// import { notFound } from "next/navigation";
 import { rovers } from "@/data/rovers";
 
 export async function generateStaticParams() {
@@ -11,23 +11,23 @@ export async function generateStaticParams() {
 
 export default async function DynamicRoverPage(
   {
-  params,
+  // params,
   searchParams,
 }: {
-  params: Promise<{ lang: string, rover: string }>,
+  // params: Promise<{ lang: string, rover: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 ) {
     const { sol } = await searchParams;
-    const { lang, rover } = await params;
+    // const { lang, rover } = await params;
 
-    if (!rovers.includes(rover)) {
-        notFound();
-    }
+    // if (!rovers.includes(rover)) {
+    //     notFound();
+    // }
 
-    const dict = await getDictionary(lang);
+    // const dict = await getDictionary(lang);
 
-    console.log(dict, sol);
+    console.log(sol);
     
     // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     // // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
