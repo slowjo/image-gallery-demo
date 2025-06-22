@@ -18,13 +18,6 @@ export default async function DynamicRoverPage(
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 ) {
-    // console.log(searchParams);
-    try {
-      const sparams = await searchParams;
-      console.log(sparams);
-    } catch (error) {
-      console.log(error);
-    }
     const { lang, rover } = await params;
     const { sol : solParam } = await searchParams;
 
@@ -35,7 +28,6 @@ export default async function DynamicRoverPage(
     const dict = await getDictionary(lang);
     
     const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
-    // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
     if (!res2.ok) {
       return (
@@ -52,19 +44,19 @@ export default async function DynamicRoverPage(
     const res3 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
     if (!res3.ok) {
+      console.log(res3);
+
       return (
         <div>
-                {'There was a problem loading the images'}
-            </div>
+            {'There was a problem loading the images'}
+        </div>
         );
       }
 
     const data3 = await res3.json();
-    // console.log(solParam, data3, sol, dict, sols);
-    // console.log(solParam, dict);
       
     return (
-        <ImageGrid 
+        <ImageGrid
             key={sol ? sol : 0}
             latestPhotos={data3.photos || []}
             sol={sol}

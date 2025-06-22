@@ -1,10 +1,11 @@
 'use client'
 
-import Image from "next/image";
+// import Image from "next/image";
 import { Ref, useCallback, useRef, useState } from "react";
-import ImageListItemWithLoadingState from "@/components/ImageListItemWithLoadingState";
+import NewImageListItemWithLoadingState from "@/components/NewImageListItemWithLoadingState";
 import { getImages } from "@/app/actions";
 import SelectSol from "@/components/SelectSol";
+// import Link from "next/link";
 
 type photoDataType = {
     id: string;
@@ -17,8 +18,10 @@ type photoDataType = {
     rover: string;
 }
 
-export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[] }) {
-    const [selectedImage, setSelectedImage] = useState('');
+export default function ImageGrid(
+    { latestPhotos, buttonLabel, fullPageViewButton, rover, sol, sols } : { latestPhotos : photoDataType[], buttonLabel : string, fullPageViewButton : string, rover : string, sol : number, sols : number[] }
+) {
+    // const [selectedImage, setSelectedImage] = useState('');
     const [showImage, setShowImage] = useState(false);
     const [page, setPage] = useState(2);
     const [photos, setPhotos] = useState(latestPhotos);
@@ -41,6 +44,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                     setLoading(true);
                     console.log(rover, page, sol);
                     const moreImages = await getImages(rover, page, sol);
+                    console.log('moreImages', moreImages);
                     if (!moreImages || !moreImages.length) {
                         setMaybeNoMorePhotos(true);
                     } else {
@@ -72,25 +76,25 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
         }
     }, [page, maybeNoMorePhotos, rover, sol]);
 
-    const selectImage = (url : string) => {
-        setSelectedImage(url);
-        setShowImage(true);
-    }
+    // const selectImage = (url : string) => {
+    //     setSelectedImage(url);
+    //     setShowImage(true);
+    // }
 
-    console.log(sols, rover, sol);
+    // console.log(sols, rover, sol);
 
     return(
         <section className="imagegrid-container">
             <SelectSol sols={sols} rover={rover} solProp={sol} />
             <ul className="imagegrid">
-                {photos && photos.map((photo) => (
+                {photos && photos.map((photo, index) => (
                 // {photos && photos.map((photo, index) => (
                 <div key={photo.id} 
                 // ref={
                 //         (index === photos.length - 1 ? lastImage : null) as Ref<HTMLDivElement>
                 //     }
                     >
-                    <ImageListItemWithLoadingState selectImage={selectImage} imageSrc={photo.img_src} fullPageViewButton={fullPageViewButton} camera={photo?.camera?.full_name || ''} earthDate={photo?.earth_date || ''} sol={photo.sol} />
+                    <NewImageListItemWithLoadingState imageSrc={photo.img_src} fullPageViewButton={fullPageViewButton} camera={photo?.camera?.full_name || ''} earthDate={photo?.earth_date || ''} sol={photo.sol} rover={rover} index={index} />
                 </div>    
             ))}
             </ul>
@@ -102,7 +106,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                 </svg>
             </div>
 
-            <div className={`imagemodal ${showImage ? '' : 'hidden'}`}>
+            {/* <div className={`imagemodal ${showImage ? '' : 'hidden'}`}>
                 {
                     selectedImage ? (
                         <Image src={selectedImage} width={2000} height={1600} alt="" className="imagemodal-image" />
@@ -110,7 +114,7 @@ export default function ImageGrid({ latestPhotos, buttonLabel, fullPageViewButto
                         null
                     )
                 }
-            </div>
+            </div> */}
 
             <button aria-label={buttonLabel} title={buttonLabel} className={`close-modal-button ${showImage ? '' : 'hidden'}`} onClick={() => {setShowImage(false)}}>
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
