@@ -409,9 +409,9 @@ nav ul li:last-child .navlink {
         padding: 0.7rem; 
     }
 
-    .imagegrid button:hover + .button-overlay {
+    /* .imagegrid button:hover + .button-overlay {
         opacity: 0; 
-    }
+    } */
 
     .imagemodal,
     .imagepage {
