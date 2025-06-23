@@ -2,7 +2,8 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 import { notFound } from "next/navigation";
 import { rovers } from "@/data/rovers";
 import Image from "next/image";
-import Link from "next/link";
+import Modal from "@/app/[lang]/[rover]/@modal/(..)[rover]/[photoId]/modal";
+
 
 export default async function PhotoPage(
   {
@@ -48,17 +49,22 @@ export default async function PhotoPage(
         );
       }
 
-    const data = await res.json();
+    const data3 = await res.json();
       
     return (
-        <div className="imagepage">
-            <Image src={data?.photos[+photoId % 25]?.img_src} alt={''} width={2000} height={1000} />
-            <Link href={`/${rover}?sol=${sol}`} aria-label={dict.buttonLabel} title={dict.buttonLabel} className={`close-modal-button`}>
-            {/* <button aria-label={buttonLabel} title={buttonLabel} className={`close-modal-button ${showImage ? '' : 'hidden'}`} onClick={() => {setShowImage(false)}}> */}
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="m14 8-4 4 4 4"/>
-                </svg>
-            </Link>
-        </div>
+          <Modal buttonLabel={dict?.buttonLabel || ''}>
+              <Image src={data3?.photos[+photoId % 25]?.img_src} alt={''} width={2000} height={1000} />
+          </Modal>
+            // <div className="imagemodal">
+            //     <Image src={data3?.photos[+photoId % 25]?.img_src} alt={''} width={2000} height={1000} />
+            //     <button onClick={() => {  }} aria-label='' title='' className={`close-modal-button`}>
+            //     {/* <Link href={`/${rover}?sol=${sol}`} aria-label='' title='' className={`close-modal-button`}> */}
+            //     {/* <button aria-label={buttonLabel} title={buttonLabel} className={`close-modal-button ${showImage ? '' : 'hidden'}`} onClick={() => {setShowImage(false)}}> */}
+            //         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            //             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="m14 8-4 4 4 4"/>
+            //         </svg>
+            //     </button>
+            //     {/* </Link> */}
+            // </div>
     );
 }

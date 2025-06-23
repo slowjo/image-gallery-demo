@@ -3,12 +3,6 @@ import ImageGrid from "@/components/ImageGrid";
 import { notFound } from "next/navigation";
 import { rovers } from "@/data/rovers";
 
-// export async function generateStaticParams() {
-//   return rovers.map((rover) => ({
-//     rover: rover,
-//   }))
-// }
-
 export default async function DynamicRoverPage(
   {
   params,
@@ -27,9 +21,12 @@ export default async function DynamicRoverPage(
 
     const dict = await getDictionary(lang);
     
-    const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
+    const res = await fetch(`https://mars-photos.herokuapp.com/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
+    // const res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/manifests/${rover}?api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
-    if (!res2.ok) {
+    if (!res.ok) {
+      console.log(res);
+
       return (
         <div>
             {'There was a problem loading the images'}
@@ -37,14 +34,15 @@ export default async function DynamicRoverPage(
       );
     }
 
-    const data2 = await res2.json();
-    const sol = solParam || data2.photo_manifest.photos[data2.photo_manifest.photos.length - 1].sol;
-    const sols = data2?.photo_manifest?.photos?.map((item : { sol : number }) => item.sol) || [];
+    const data = await res.json();
+    const sol = solParam || data.photo_manifest.photos[data.photo_manifest.photos.length - 1].sol;
+    const sols = data?.photo_manifest?.photos?.map((item : { sol : number }) => item.sol) || [];
 
-    const res3 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
+    const res2 = await fetch(`https://mars-photos.herokuapp.com/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
+    // const res2 = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&api_key=DEMO_KEY`, { next: { revalidate: 3600 } });
     
-    if (!res3.ok) {
-      console.log(res3);
+    if (!res2.ok) {
+      console.log(res2);
 
       return (
         <div>
@@ -53,15 +51,14 @@ export default async function DynamicRoverPage(
         );
       }
 
-    const data3 = await res3.json();
+    const data2 = await res2.json();
       
     return (
         <ImageGrid
             key={sol ? sol : 0}
-            latestPhotos={data3.photos || []}
+            latestPhotos={data2.photos || []}
             sol={sol}
             sols={sols} 
-            // latestPhotos={data.latest_photos || []} 
             buttonLabel={dict.buttonLabel || ''} 
             fullPageViewButton={dict.fullPageViewButton || ''}
             rover={rover} 

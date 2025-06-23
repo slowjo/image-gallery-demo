@@ -1,6 +1,5 @@
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Image from "next/image";
-// import styles from "./page.module.css";
 
 export default async function Home({
   params,
@@ -13,7 +12,6 @@ export default async function Home({
 
   return (
     <main className='startpage-container'>
-    {/* <main className={styles.page}> */}
       <section className="startpage-content">
         <h1>
           <span className="kicker">{dict.titleLargePart}</span><br/>

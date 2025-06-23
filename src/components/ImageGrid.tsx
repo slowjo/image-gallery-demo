@@ -50,11 +50,11 @@ export default function ImageGrid(
                     } else {
                         setMaybeNoMorePhotos(false);
                         setPage((prev) => prev + 1);
+                        setPhotos((prev) => [
+                            ...prev,
+                            ...moreImages
+                        ]);
                     }
-                    setPhotos((prev) => [
-                        ...prev,
-                        ...moreImages
-                    ]);
                 } catch {
                     setMaybeNoMorePhotos(true);
                     console.log('fetch failed on the client');
